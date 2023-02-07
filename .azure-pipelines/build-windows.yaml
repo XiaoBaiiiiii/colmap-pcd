@@ -1,0 +1,62 @@
+parameters:
+  visualStudioVersion: '2019'
+
+jobs:
+- job: windows_build_${{ parameters.visualStudioVersion }}
+  displayName: 'Windows VS${{ parameters.visualStudioVersion }}'
+  timeoutInMinutes: 360
+  pool:
+    vmImage: 'windows-${{ parameters.visualStudioVersion }}'
+  variables:
+    vcpkgGitCommitId: 4efb7ed628be5e56eeee009524e6ca7f3cc49c74
+  steps:
+  - task: Cache@2
+    displayName: 'Cache vcpkg'
+    inputs:
+      key: $(Build.SourcesDirectory)/.azure-pipelines/build-windows-vcpkg.txt | "$(vcpkgGitCommitId)" | "$(Agent.OS)" | "${{ parameters.visualStudioVersion }}"
+      path: '$(Build.BinariesDirectory)/vcpkg'
+
+  - task: run-vcpkg@0
+    displayName: 'Run vcpkg'
+    inputs:
+      vcpkgArguments: '@$(Build.SourcesDirectory)/.azure-pipelines/build-windows-vcpkg.txt'
+      vcpkgGitCommitId: $(vcpkgGitCommitId)
+      vcpkgGitURL: https://github.com/microsoft/vcpkg
+
+  - pwsh: |
+      curl -L -o `
+        $(Build.BinariesDirectory)/ninja.zip `
+        https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-win.zip
+      Expand-Archive -LiteralPath $(Build.BinariesDirectory)/ninja.zip -DestinationPath $(Build.BinariesDirectory)
+    displayName: Prepare build
+
+  - task: run-cmake@0
+    displayName: 'Configure and build'
+    inputs:
+      cmakeListsOrSettingsJson: 'CMakeListsTxtAdvanced'
+      cmakeListsTxtPath: '$(Build.SourcesDirectory)/CMakeLists.txt'
+      cmakeBuildType: 'Release'
+      cmakeGenerator: 'Ninja'
+      cmakeAppendedArgs: -GNinja -DCMAKE_MAKE_PROGRAM=$(Build.BinariesDirectory)/ninja.exe -DCMAKE_BUILD_TYPE=Release -DTESTS_ENABLED=ON
+      useVcpkgToolchainFile: true
+
+  - pwsh: |
+      $env:PATH = "$(Build.BinariesDirectory)/vcpkg/installed/x64-windows/release/bin/;$env:Path"
+      ctest -E "(feature/sift_test)|(util/opengl_utils_test)|(mvs/gpu_mat_test)"
+      $tests_pass=$LastExitCode
+      if ($tests_pass -ne 0) {
+          echo "`n`n`nTests failed, rerunning with verbose output"
+          ctest --rerun-failed --output-on-failure
+      }
+      exit $tests_pass
+    workingDirectory: $(Build.ArtifactStagingDirectory)
+    displayName: 'Run tests'
+
+  - pwsh: |
+      # Deleting a directory that breaks the caching of vcpkg.
+      # Could potentially be disabled again in future vcpkg versions.
+      $path = "$(Build.BinariesDirectory)/vcpkg/installed/x64-windows/tools/meson/test cases"
+      if (Test-Path $path) {
+        Remove-Item -Recurse -Force $path
+      }
+    displayName: 'Cleanup environment'
