@@ -1,7 +1,7 @@
 Colmap-PCD
 ==========
 
-Colmap-PCD is an open-source tool for fine image-to-point cloud registration. The software extracts and matches features between pairwise images and from images to a point cloud. The matched features are formulated into constraints in a factor-graph optimization problem that solves for the camera poses together with the 3D reconstructed features. The initial image needs an approximately known camera pose for the processing to start. The repository is based on the original [Colmap](https://colmap.github.io) as imaged based 3D reconstruction software.
+Colmap-PCD is an open-source tool for fine image-to-point cloud registration. The software extracts and matches features between pairwise images and from images to a point cloud. The matched features are formulated into constraints in a factor-graph optimization problem that solves for the camera poses together with the 3D reconstructed features. The initial image needs an approximately known camera pose for the processing to start. The repository is based on the original [Colmap](https://colmap.github.io) as imaged-based 3D reconstruction software.
 
 <p align="center">
   <img src="img/opening_image.jpg" alt="Example Dataset" width="70%"/>
