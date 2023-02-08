@@ -96,7 +96,7 @@ Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1
   <img src="img/smith_hall_outdoor_dataset.jpg" alt="Example Dataset" width="70%"/>
 </p>
 
-## Liscense
+## License
 
 The repository is licensed under BSD license.
 
