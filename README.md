@@ -58,7 +58,7 @@ Launch Colmap-PCD.
 colmap gui
 ```
 
-Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB). We only need '25_images.zip', 'intrinsics.txt', and 'pointcloud_with_norm.ply' for quick testing, while we keep '450_images.zip' for full-scale testing later. After downloading, unzip '25_images.zip'. Then, [follow this instruction video](https://youtu.be/TuX8tCmJCC8) to load the example dataset to Colmap-PCD and start processing. The red lines illustrate the initial image-to-point cloud association and the blue lines illustrate the final associations.
+Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB). We only need '25_images.zip', 'intrinsics.txt', and 'pointcloud_with_norm.ply' for quick testing, while we keep '450_images.zip' for full-scale testing later. After downloading, unzip '25_images.zip'. Then, [follow this instruction video](https://youtu.be/TuX8tCmJCC8) to load the example dataset to Colmap-PCD and start processing. The red lines illustrate the initial image-to-point cloud association. The blue and yellow lines illustrate the final associations for non-level and level surface points, respectively.
 
 <p align="center">
   <a href="https://youtu.be/TuX8tCmJCC8"><img src="img/instruction_video.jpg" alt="Instruction Video" width="70%"/></a>
@@ -66,7 +66,7 @@ Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1
 
 ## Advanced
 
-**Preparing point cloud**: We recommend using [CloudCompare](https://www.danielgm.net/cc) to prepare the point cloud. Downsample the point cloud to 5-10cm resolution, calculate normals, and save the point cloud in PLY format (binary or ASCII). Make sure the coordinate convention of the point cloud is x-front, y-left, and z-up. Users can also view the 'pointcloud_with_norm.ply' file from [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB) in CloudCompare.
+**Preparing point cloud**: We recommend using [CloudCompare](https://www.danielgm.net/cc) to prepare the point cloud. Downsample the point cloud to 3-5cm resolution, calculate normals using radius at 10-20cm, and save the point cloud in PLY format (binary or ASCII). Make sure the coordinate convention of the point cloud is x-front, y-left, and z-up. Users can also view the 'pointcloud_with_norm.ply' file from [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB) in CloudCompare.
 
 **Setting initial camera pose**: The default camera pose of the initial image is set to the point cloud origin without rotation (camera is level and looking toward x-axis). If users record the initial image elsewhere and need to set the initial camera pose, click 'Reconstruction->Reconstruction options', in the 'Init' tab, set 'init_image_x [m]', 'init_image_y [m]', 'init_image_z [m]', 'init_image_roll [deg]', 'init_image_pitch [deg]', and 'init_image_yaw [deg]'. Note that the camera pose follows the same coordinate convention with the point cloud, x-front, y-left, z-up, which is different from typical camera coordinate conventions.
 
@@ -82,9 +82,19 @@ Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1
 
 **Refining registration**: After processing completes, users can optionally choose to refine the registration in a batch optimization. Click 'Reconstruction->Bundle adjustment' followed by the 'Run' button. Users can optionally refine the camera intrinsics together by checking 'refine_focal_length', 'refine_prinpical_point', and 'refine_extra_params'.
 
-## Datasets (more will be released)
+## Datasets
 
-[Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB): Registration of 25 images is in the [instruction video](https://youtu.be/TuX8tCmJCC8), and registration of 450 images is in the first figure.
+[NSH Patio Outdoor Dataset](https://drive.google.com/drive/folders/1mUs4eRK1aGXgNui4wRt0KaLBX7qXGD-q): Registration of 450 images in the figure below.
+
+<p align="center">
+  <img src="img/nsh_patio_outdoor_dataset.jpg" alt="Example Dataset" width="70%"/>
+</p>
+
+[Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB): Registration of 25 images in the [instruction video](https://youtu.be/TuX8tCmJCC8), and registration of 450 images in the figure below.
+
+<p align="center">
+  <img src="img/smith_hall_outdoor_dataset.jpg" alt="Example Dataset" width="70%"/>
+</p>
 
 ## Liscense
 
@@ -92,6 +102,10 @@ The repository is licensed under BSD license.
 
 ## Authors
 [Chunge Bai](https://github.com/XiaoBaiiiiii), [Ruijie Fu](https://ruijiefu.com), and [Ji Zhang](https://frc.ri.cmu.edu/~zhangji)
+
+## Reference
+
+C. Bai, R. Fu, and J. Zhang. Colmap-PCD: An Open-source Tool for Fine Image-to-point cloud Registration. Submitted in 2023.
 
 ## Credits
 
