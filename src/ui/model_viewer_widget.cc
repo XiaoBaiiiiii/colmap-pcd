@@ -768,13 +768,23 @@ void ModelViewerWidget::UploadLidarMapData() {
       std::cout << "Point cloud path undefined." << std::endl; 
       return;
     }
-    std::string lidar_map_path = options_->mapper->lidar_pointcloud_path;
+    lidar_map_path_ = options_->mapper->lidar_pointcloud_path;
 
-    lidar_map_ptr_.reset(new lidar::PointCloudProcess(lidar_map_path));
+    lidar_map_ptr_.reset(new lidar::PointCloudProcess(lidar_map_path_));
     if (!lidar_map_ptr_->LoadDownsizedMap()){
       std::cout << "Load lidar map fail"<<std::endl;
       std::cout << std::endl;
 
+    }
+  } else {
+    if (lidar_map_path_ != options_->mapper->lidar_pointcloud_path) {
+      lidar_map_path_ = options_->mapper->lidar_pointcloud_path;
+
+      lidar_map_ptr_.reset(new lidar::PointCloudProcess(lidar_map_path_));
+      if (!lidar_map_ptr_->LoadDownsizedMap()){
+        std::cout << "Load lidar map fail"<<std::endl;
+        std::cout << std::endl;
+      }
     }
   }
 

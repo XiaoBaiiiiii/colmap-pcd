@@ -220,6 +220,8 @@ class ModelViewerWidget : public QOpenGLWidget,
   float near_plane_;
 
   float background_color_[3];
+
+  std::string lidar_map_path_;
 };
 
 }  // namespace colmap
