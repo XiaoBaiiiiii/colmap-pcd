@@ -84,6 +84,12 @@ Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1
 
 ## Datasets
 
+[NSH Atrium Indoor Dataset](https://drive.google.com/drive/folders/1Dmpv91aFBUZfIa1Sh23T0a_Z4PKvsfHN): Registration of 450 images in the figure below.
+
+<p align="center">
+  <img src="img/nsh_atrium_indoor_dataset.jpg" alt="Example Dataset" width="70%"/>
+</p>
+
 [NSH Patio Outdoor Dataset](https://drive.google.com/drive/folders/1mUs4eRK1aGXgNui4wRt0KaLBX7qXGD-q): Registration of 450 images in the figure below.
 
 <p align="center">
