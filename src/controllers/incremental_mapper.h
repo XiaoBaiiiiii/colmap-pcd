@@ -43,7 +43,7 @@ namespace colmap {
 struct IncrementalMapperOptions {
  public:
   // Fix pose of the first image for some times
-  int first_image_fixed_frames = 5;
+  int first_image_fixed_frames = 8;
   // Minimize proj times for each image before Icp
   int min_proj_num = 1;
   // If use lidar point cloud as constraint
