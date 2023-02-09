@@ -84,19 +84,19 @@ Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1
 
 ## Datasets
 
-[NSH Atrium Indoor Dataset](https://drive.google.com/drive/folders/1Dmpv91aFBUZfIa1Sh23T0a_Z4PKvsfHN): Registration of 450 images in the figure below.
+[NSH Atrium Indoor Dataset](https://drive.google.com/drive/folders/1Dmpv91aFBUZfIa1Sh23T0a_Z4PKvsfHN): Registration of 450 images in the figure below. To improve initialization robustness, click 'Reconstruction->Reconstruction options', in the 'Init' tab, set 'init_image_id2 = 5'.
 
 <p align="center">
   <img src="img/nsh_atrium_indoor_dataset.jpg" alt="Example Dataset" width="70%"/>
 </p>
 
-[NSH Patio Outdoor Dataset](https://drive.google.com/drive/folders/1mUs4eRK1aGXgNui4wRt0KaLBX7qXGD-q): Registration of 450 images in the figure below.
+[NSH Patio Outdoor Dataset](https://drive.google.com/drive/folders/1mUs4eRK1aGXgNui4wRt0KaLBX7qXGD-q): Registration of 450 images in the figure below. To improve initialization robustness, click 'Reconstruction->Reconstruction options', in the 'Init' tab, set 'init_image_id2 = 8'.
 
 <p align="center">
   <img src="img/nsh_patio_outdoor_dataset.jpg" alt="Example Dataset" width="70%"/>
 </p>
 
-[Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB): Registration of 25 images in the [instruction video](https://youtu.be/TuX8tCmJCC8), and registration of 450 images in the figure below.
+[Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1J9cEWSSFCL_XmHSVYfuWgtmcgAWprB): Registration of 25 images in the [instruction video](https://youtu.be/TuX8tCmJCC8), and registration of 450 images in the figure below. To improve initialization robustness, click 'Reconstruction->Reconstruction options', in the 'Init' tab, set 'init_image_id2 = 3'.
 
 <p align="center">
   <img src="img/smith_hall_outdoor_dataset.jpg" alt="Example Dataset" width="70%"/>
