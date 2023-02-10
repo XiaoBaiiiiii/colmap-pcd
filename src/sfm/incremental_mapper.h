@@ -104,7 +104,7 @@ class IncrementalMapper {
     double abs_pose_max_error = 24.0;
 
     // Minimum number of inliers in absolute pose estimation.
-    int abs_pose_min_num_inliers = 10;
+    int abs_pose_min_num_inliers = 30;
 
     // Minimum inlier ratio in absolute pose estimation.
     double abs_pose_min_inlier_ratio = 0.25;
