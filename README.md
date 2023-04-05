@@ -46,7 +46,7 @@ Clone the open-source repository, compile, and install.
 
 ```
 git clone https://github.com/XiaoBaiiiiii/colmap-pcd.git
-cd colmap-pcd-internal
+cd colmap-pcd
 mkdir build
 cd build
 cmake ..

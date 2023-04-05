@@ -785,7 +785,6 @@ IncrementalMapper::AdjustLocalBundle(
     if (if_first_image_exist && reconstruction_->NumRegImages() < options.first_image_fixed_frames){
       ba_config.SetConstantPose(options.init_image_id1);
     }
-    ////////////////////////////////////Chunge////////////////////////////////
 
     // Fix the existing images, if option specified.
     if (options.fix_existing_images) {
