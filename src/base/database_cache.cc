@@ -173,7 +173,6 @@ void DatabaseCache::Load(const Database& database, const size_t min_num_matches,
   std::cout << "Building correspondence graph..." << std::flush;
 
   for (const auto& image : images_) {
-    //填入image_id和图像中特征点的个数
     correspondence_graph_.AddImage(image.first, image.second.NumPoints2D());
   }
 

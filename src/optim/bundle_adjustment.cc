@@ -112,7 +112,7 @@ size_t BundleAdjustmentConfig::NumResiduals(
     const Reconstruction& reconstruction) const {
   // Count the number of observations for all added images.
   size_t num_observations = 0;
-  //遍历image_ids_,取出reconstruction类中每一个图像的3d点的个数，累加起来
+
   for (const image_t image_id : image_ids_) {
     num_observations += reconstruction.Image(image_id).NumPoints3D();
   }

@@ -54,7 +54,7 @@
 
 namespace colmap {
 
-struct PlyPoint;//寻找对PlyPoint点的结构的定义
+struct PlyPoint;
 struct RANSACOptions;
 class DatabaseCache;
 class CorrespondenceGraph;

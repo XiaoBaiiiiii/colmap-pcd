@@ -180,9 +180,9 @@ void BuildImageModel(const Image& image, const Camera& camera,
 ModelViewerWidget::ModelViewerWidget(QWidget* parent, OptionManager* options)
     : QOpenGLWidget(parent),
       options_(options),
-      point_viewer_widget_(new PointViewerWidget(parent, this, options)),//点击3dpoint会弹出的窗口
+      point_viewer_widget_(new PointViewerWidget(parent, this, options)),
       image_viewer_widget_(
-          new DatabaseImageViewerWidget(parent, this, options)),//点击image会弹出的窗口
+          new DatabaseImageViewerWidget(parent, this, options)),
       movie_grabber_widget_(new MovieGrabberWidget(parent, this)),
       mouse_is_pressed_(false),
       focus_distance_(kInitFocusDistance),
@@ -194,7 +194,7 @@ ModelViewerWidget::ModelViewerWidget(QWidget* parent, OptionManager* options)
   background_color_[1] = 1.0f;
   background_color_[2] = 1.0f;
 
-  QSurfaceFormat format;// 一个用来渲染的类
+  QSurfaceFormat format;
   format.setDepthBufferSize(24);
   format.setMajorVersion(3);
   format.setMinorVersion(2);

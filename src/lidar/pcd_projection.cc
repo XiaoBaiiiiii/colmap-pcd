@@ -217,7 +217,6 @@ void PcdProj::ImageMapProj(LImage& img, ImageMapType& image_map, const Camera& c
     Eigen::Matrix3f rot_cw = img.rot_cw.cast<float>();
     Eigen::Vector3f t_cw = img.t_cw.cast<float>();
 
-    // 打开写入点云的文本
     std::ofstream ofs;
     if (options_.if_save_lidar_frame) {
         std::string substr;
@@ -357,7 +356,7 @@ void PcdProj::SaveDepthImage(const LImage& img){
     cv::addWeighted(depth_image,0.8,original_image,0.2,0,result_image);
 
     for(auto& point : img.feature_points){
-		cv::circle(result_image, cv::Point(point(0),point(1)), 4, cv::Scalar(0, 255, 120), -1);//画点，其实就是实心圆
+		cv::circle(result_image, cv::Point(point(0),point(1)), 4, cv::Scalar(0, 255, 120), -1);
 	}
 
     std::string result_image_path = options_.depth_image_folder + "/";
