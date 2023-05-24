@@ -112,10 +112,6 @@ The repository is licensed under BSD license.
 ## Authors
 [Chunge Bai](https://github.com/XiaoBaiiiiii), [Ruijie Fu](https://ruijiefu.com), and [Ji Zhang](https://frc.ri.cmu.edu/~zhangji)
 
-## Reference
-
-C. Bai, R. Fu, and J. Zhang. Colmap-PCD: An Open-source Tool for Fine Image-to-point cloud Registration. Submitted in 2023.
-
 ## Credits
 
 This repository is based on the original [Colmap](https://colmap.github.io).
