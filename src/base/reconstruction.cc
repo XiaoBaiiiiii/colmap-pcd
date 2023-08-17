@@ -691,6 +691,8 @@ size_t Reconstruction::FilterAllPoints3D(const double max_reproj_error,
       FilterPoints3DWithLargeReprojectionError(max_reproj_error, point3D_ids);
   num_filtered +=
       FilterPoints3DWithSmallTriangulationAngle(min_tri_angle, point3D_ids);
+  num_filtered +=
+      FilterObservationsWithNegativeDepth();
   return num_filtered;
 }
 

@@ -96,6 +96,10 @@ bool PointCloudProcess::SearchNearestNeiborByKdtree(const Eigen::Vector3d& point
         l_pt.block(3,0,3,1) << static_cast<double>(closest_point.normal_x),
                                static_cast<double>(closest_point.normal_y),
                                static_cast<double>(closest_point.normal_z);
+
+        if (IsNaN(l_pt)) return false;
+        if (l_pt.block(3,0,3,1).norm() < 1e-6) return false;
+        
         return true;
     } else {
         return false;

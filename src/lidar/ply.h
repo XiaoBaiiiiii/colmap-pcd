@@ -1,6 +1,7 @@
 #ifndef COLMAP_LIDAR_PLY_H
 #define COLMAP_LIDAR_PLY_H
 
+#include "util/matrix.h"
 #include "pt_type.h"
 #include "pcd_projection.h"
 #include "kdtree.h"
