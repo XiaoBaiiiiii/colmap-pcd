@@ -782,9 +782,11 @@ IncrementalMapper::AdjustLocalBundle(
     // for (const image_t local_image_id : local_bundle) {
     //   ba_config.AddImage(local_image_id);
     // }
-    if (if_first_image_exist && reconstruction_->NumRegImages() < options.first_image_fixed_frames){
+    if (ba_options.if_add_lidar_constraint && 
+        if_first_image_exist && 
+        reconstruction_->NumRegImages() < options.first_image_fixed_frames){
       ba_config.SetConstantPose(options.init_image_id1);
-    }
+    } 
 
     // Fix the existing images, if option specified.
     if (options.fix_existing_images) {
@@ -812,18 +814,20 @@ IncrementalMapper::AdjustLocalBundle(
     }
 
     // Fix 7 DOF to avoid scale/rotation/translation drift in bundle adjustment.
-    // if (local_bundle.size() == 1) {
-    //   ba_config.SetConstantPose(local_bundle[0]);
-    //   ba_config.SetConstantTvec(image_id, {0});
-    // } else if (local_bundle.size() > 1) {
-    //   const image_t image_id1 = local_bundle[local_bundle.size() - 1];
-    //   const image_t image_id2 = local_bundle[local_bundle.size() - 2];
-    //   ba_config.SetConstantPose(image_id1);
-    //   if (!options.fix_existing_images || 
-    //       !existing_image_ids_.count(image_id2)) {
-    //     ba_config.SetConstantTvec(image_id2, {0});
-    //   }
-    // }
+    if (!ba_options.if_add_lidar_constraint) {
+      if (local_bundle.size() == 1) {
+        ba_config.SetConstantPose(local_bundle[0]);
+        ba_config.SetConstantTvec(image_id, {0});
+      } else if (local_bundle.size() > 1) {
+        const image_t image_id1 = local_bundle[local_bundle.size() - 1];
+        const image_t image_id2 = local_bundle[local_bundle.size() - 2];
+        ba_config.SetConstantPose(image_id1);
+        if (!options.fix_existing_images || 
+            !existing_image_ids_.count(image_id2)) {
+          ba_config.SetConstantTvec(image_id2, {0});
+        }
+      }
+    }
 
     // Make sure, we refine all new and short-track 3D points, no matter if
     // they are fully contained in the local image set or not. Do not include
@@ -833,19 +837,31 @@ IncrementalMapper::AdjustLocalBundle(
     std::unordered_set<point3D_t> variable_point3D_ids;
     std::unordered_set<point3D_t> pcdproj_point3D_ids;
     std::unordered_set<point3D_t> search_closest_point3D_ids;
-    for (const point3D_t point3D_id : point3D_ids) {
-      const Point3D& point3D = reconstruction_->Point3D(point3D_id);
-      const size_t kMaxTrackLength = 1000;
-      if (!point3D.HasError() || point3D.Track().Length() <= kMaxTrackLength) {
-        ba_config.AddVariablePoint(point3D_id);
-        variable_point3D_ids.insert(point3D_id);
-        if (point3D.Track().Length() < options.min_proj_num + 3){
-          pcdproj_point3D_ids.insert(point3D_id);
-        } else {
-          search_closest_point3D_ids.insert(point3D_id);
+    if (ba_options.if_add_lidar_constraint) {
+      for (const point3D_t point3D_id : point3D_ids) {
+        const Point3D& point3D = reconstruction_->Point3D(point3D_id);
+        const size_t kMaxTrackLength = 1000;
+        if (!point3D.HasError() || point3D.Track().Length() <= kMaxTrackLength) {
+          ba_config.AddVariablePoint(point3D_id);
+          variable_point3D_ids.insert(point3D_id);
+          if (point3D.Track().Length() < options.min_proj_num + 3){
+            pcdproj_point3D_ids.insert(point3D_id);
+          } else {
+            search_closest_point3D_ids.insert(point3D_id);
+          }
+        }
+      }
+    } else {
+      for (const point3D_t point3D_id : point3D_ids) {
+        const Point3D& point3D = reconstruction_->Point3D(point3D_id);
+        const size_t kMaxTrackLength = 15;
+        if (!point3D.HasError() || point3D.Track().Length() <= kMaxTrackLength) {
+          ba_config.AddVariablePoint(point3D_id);
+          variable_point3D_ids.insert(point3D_id);
         }
       }
     }
+
     if (ba_options.if_add_lidar_constraint || ba_options.if_add_lidar_corresponding){
       for (auto iter = pcdproj_point3D_ids.begin(); iter != pcdproj_point3D_ids.end(); iter++){
         const point3D_t point3D_id = *iter;
@@ -906,9 +922,10 @@ IncrementalMapper::AdjustLocalBundle(
   report.num_filtered_observations += reconstruction_->FilterPoints3D(
       options.filter_max_reproj_error, options.filter_min_tri_angle,
       point3D_ids);
-  report.num_filtered_observations += reconstruction_->FilterLidarOutlier(
-      options.proj_max_dist_error,options.icp_max_dist_error);
-
+  if (ba_options.if_add_lidar_constraint) {
+    report.num_filtered_observations += reconstruction_->FilterLidarOutlier(
+        options.proj_max_dist_error,options.icp_max_dist_error);
+  }
   return report;
 }
 
