@@ -106,7 +106,8 @@ Download [Smith Hall Outdoor Dataset](https://drive.google.com/drive/folders/1P1
 </p>
 
 ## Paper
-Thank you for citing our [paper](https://arxiv.org/abs/2310.05504) if you use any of this code or datasets. (Submitted)
+
+Please make sure to convince yourself that all three authors contributed to the [paper](https://arxiv.org/abs/2310.05504)!
 
 ## License
 
